@@ -5,10 +5,23 @@ require('dotenv').config();
 const port = process.env.PORT;
 const db = require('./database/db');
 const expressLayouts = require('express-ejs-layouts')
-app.use(expressLayouts);
+const session = require('express-session');
+const authRoutes = require('./routes/authRoutes');
+const { isAuthenticated } = require('./middlewares/middleware.js');
 
+app.use(expressLayouts);
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Konfigurasi express-session
+app.use(session({
+    secret: process.env.SESSION_SECRET, // Gunakan secret key yang aman
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false } // Set ke true jika menggunakan HTTPS
+}));
+
+app.use('/', authRoutes);
 app.use('/todos', todoRoutes);
 app.set('view engine' , 'ejs');
 app.get('/', (req, res) => {
