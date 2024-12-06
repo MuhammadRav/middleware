@@ -12,6 +12,8 @@ const { isAuthenticated } = require('./middlewares/middleware.js');
 app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
+
 
 // Konfigurasi express-session
 app.use(session({
@@ -24,7 +26,7 @@ app.use(session({
 app.use('/', authRoutes);
 app.use('/todos', todoRoutes);
 app.set('view engine' , 'ejs');
-app.get('/', (req, res) => {
+app.get('/',isAuthenticated, (req, res) => {
     res.render('index', {
         layout : 'layouts/main-layout'
     });

@@ -1,0 +1,88 @@
+/* General body styles */
+body {
+    background-color: #34495e; /* Dark background */
+    font-family: 'Pirata One', cursive; /* Pirate font */
+
+}
+
+/* Pirate themed text */
+.pirate-text {
+    color: #f39c12; /* Pirate gold */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Title styling */
+h1 {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Card container styles */
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+/* Individual todo card styling */
+.todo-card {
+    background-color: #2c3e50; /* Pirate ship color */
+    border: 2px solid #c0392b; /* Pirate red border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+}
+
+/* Completed task styling */
+.completed .card-title {
+    text-decoration: line-through;
+    color: #7f8c8d;
+}
+
+/* Button styling */
+button {
+    background-color: #c0392b; /* Pirate red */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #e74c3c; /* Lighter red on hover */
+}
+
+/* Input styles */
+input[type="text"] {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    font-size: 1.1em;
+    width: 80%;
+}
+
+button[type="submit"] {
+    background-color: #f39c12; /* Gold button */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .todo-list {
+        gap: 15px;
+    }
+
+    input[type="text"] {
+        width: 70%;
+    }
+}

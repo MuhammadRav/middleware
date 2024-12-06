@@ -1,5 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List - Pirate Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/todo.css">
+</head>
+<body>
+
 <div class="container mt-5">
-    <h1 class="text-center">Todo List</h1>
+    <h1 class="text-center pirate-text">Todo List - Pirate Edition</h1>
 
     <!-- Form to Add New Todo -->
     <form id="addTodoForm" class="my-4">
@@ -12,19 +23,9 @@
     </form>
 
     <!-- List of Todos -->
-    <ul id="todoList" class="list-group">
-        <% todos.forEach(todo=> { %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="<%= todo.completed ? 'completed' : '' %>">
-                    <%= todo.task %>
-                </span>
-                <div>
-                    <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">Edit</button>
-                    <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">Delete</button>
-                </div>
-            </li>
-            <% }); %>
-    </ul>
+    <div id="todoList" class="row">
+        <!-- This will be populated with tasks from the database -->
+    </div>
 
     <!-- Edit Todo Modal -->
     <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -51,18 +52,54 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        // Load todos from the database
+        $.ajax({
+            url: '/todos',
+            type: 'GET',
+            success: function (todos) {
+                todos.forEach(todo => {
+                    $('#todoList').append(`
+                        <div class="col-md-4 mb-3">
+                            <div class="card todo-card">
+                                <div class="card-body">
+                                    <h5 class="card-title pirate-text">${todo.task}</h5>
+                                    <button class="btn btn-sm btn-success mr-2 editBtn" data-id="${todo.id}">Edit</button>
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-id="${todo.id}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            error: function (error) {
+                console.error("Error fetching todos:", error);
+            }
+        });
+
         // Add new todo
         $('#addTodoForm').on('submit', function (e) {
             e.preventDefault();
             const task = $('#newTask').val().trim();
+            const password = 'password'; // Adjust as necessary to handle passwords (perhaps from session)
             if (task) {
                 $.ajax({
                     url: '/todos',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ task: task }),
+                    data: JSON.stringify({ task: task, password: password }),
                     success: function (newTodo) {
-                        location.reload(); // Reload to show the new todo
+                        $('#todoList').append(`
+                            <div class="col-md-4 mb-3">
+                                <div class="card todo-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title pirate-text">${newTodo.task}</h5>
+                                        <button class="btn btn-sm btn-success mr-2 editBtn" data-id="${newTodo.id}">Edit</button>
+                                        <button class="btn btn-sm btn-danger deleteBtn" data-id="${newTodo.id}">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                        $('#newTask').val(''); // Clear the input field
                     },
                     error: function (error) {
                         console.error("Error adding task:", error.responseText);
@@ -72,22 +109,22 @@
         });
 
         // Delete a todo
-        $('.deleteBtn').on('click', function () {
+        $(document).on('click', '.deleteBtn', function () {
             const id = $(this).data('id');
             $.ajax({
                 url: '/todos/' + id,
                 type: 'DELETE',
                 success: function () {
-                    location.reload(); // Reload to show updated list
+                    $(`[data-id=${id}]`).closest('.todo-card').remove(); // Remove task card from UI
                 }
             });
         });
 
         // Show edit modal with the current task
         let editId;
-        $('.editBtn').on('click', function () {
+        $(document).on('click', '.editBtn', function () {
             editId = $(this).data('id');
-            const currentTask = $(this).closest('li').find('span').text();
+            const currentTask = $(this).closest('.todo-card').find('.card-title').text();
             $('#editTask').val(currentTask);
             $('#editModal').modal('show');
         });
@@ -110,3 +147,6 @@
         });
     });
 </script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <img src="/images/p.jpg" alt="Login Icon" class="login-icon">
+            <h2 class="pirate-text">Login to Pirate Crew</h2>
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label pirate-text">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label pirate-text">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary pirate-btn">Login</button>
+            </form>            
+            <p class="pirate-text">Belum punya akun? <a href="/signup" class="pirate-link">Daftar di sini</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

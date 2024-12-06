@@ -1,0 +1,119 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #343a40;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Login & Signup Forms */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Page-specific Styles */
+.login-page, .signup-page {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-page .form-control,
+.signup-page .form-control {
+    border-radius: 20px;
+}
+
+.login-page .btn-primary,
+.signup-page .btn-primary {
+    width: 100%;
+    padding: 10px;
+}
+
+/* Home Page */
+.home-page {
+    text-align: center;
+    padding: 50px;
+}
+
+.home-page h1 {
+    color: #007bff;
+}
+
+.home-page p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+/* Todo Page */
+.todo-page {
+    padding: 50px 0;
+}
+
+.todo-list {
+    margin-top: 20px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.todo-item button {
+    margin-left: 10px;
+}
+
+.todo-item .completed {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Hover Effect on Todo Card */
+.todo-item:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styles */
+.modal-dialog {
+    max-width: 500px;
+}
